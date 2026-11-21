@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "short_name": "Lyricist",
+  "name": "Lyricist - Exact Lyrics Finder",
+  "description": "Find exact, unabridged lyrics for any song instantly. Features AI-powered accuracy, karaoke mode, translation, and a beautiful dark theme.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/461/461238.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/461/461238.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "orientation": "portrait",
+  "categories": ["music", "entertainment", "education"]
+}

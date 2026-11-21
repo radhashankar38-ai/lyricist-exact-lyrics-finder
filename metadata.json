@@ -1,0 +1,5 @@
+{
+  "name": "Lyricist - Exact Lyrics Finder",
+  "description": "A beautiful, dark-themed lyrics finder that uses Google Search to provide exact lyrics for any song.",
+  "requestFramePermissions": ["camera"]
+}

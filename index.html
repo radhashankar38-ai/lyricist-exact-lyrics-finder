@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Lyricist</title>
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0F0A15" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- iOS Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Lyricist" />
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/461/461238.png" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: 'rgb(var(--background) / <alpha-value>)',
+              surface: 'rgb(var(--surface) / <alpha-value>)',
+              primary: 'rgb(var(--color-primary) / <alpha-value>)', 
+              secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+              'lime-accent': '#CCFF00', 
+              'purple-deep': '#0F0A15', 
+              'purple-surface': '#1F1129',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              space: ['"Space Grotesk"', 'sans-serif'],
+              roboto: ['"Roboto Flex"', 'sans-serif'],
+            },
+            transitionTimingFunction: {
+              'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+              'elastic': 'cubic-bezier(0.25, 1, 0.5, 1)',
+              'silky': 'cubic-bezier(0.16, 1, 0.3, 1)', 
+              'liquid': 'cubic-bezier(0.23, 1, 0.32, 1)', 
+            },
+            animation: {
+              'fade-in': 'fadeIn calc(0.8s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'zoom-in': 'zoomIn calc(0.6s * var(--anim-speed, 1)) cubic-bezier(0.23, 1, 0.32, 1) forwards',
+              'slide-up-fade': 'slideUpFade calc(1.0s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'wave': 'wave 1.5s ease-in-out infinite',
+              'drift': 'drift 45s linear infinite',
+              'blob': 'blob 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1)',
+              'gradient-xy': 'gradient-xy 8s ease infinite',
+              'karaoke-glow': 'karaoke-glow 4s ease-in-out infinite',
+              'highlight-pulse': 'highlightPulse calc(1.5s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) 2',
+              'circle-expand': 'circleExpand calc(1.0s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'water-droplet': 'waterDroplet calc(7.0s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'ripple': 'ripple calc(2.0s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'continuous-ripple': 'continuousRipple 8s linear infinite',
+              'stagger-up': 'staggerUp calc(1.5s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'simple-zoom': 'simpleZoom calc(0.8s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'wave-spread': 'waveSpread calc(3.0s * var(--anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'heartbeat': 'heartbeat 1.2s ease-in-out infinite',
+              'burst': 'burst 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              'ripple-out': 'rippleOut 0.6s ease-out forwards',
+              'particle-up': 'particleUp 0.6s ease-out forwards',
+              'fill-in': 'fillIn linear forwards',
+            },
+            keyframes: {
+              fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+              zoomIn: { '0%': { opacity: '0', transform: 'scale(0.95) translateY(10px)' }, '100%': { opacity: '1', transform: 'scale(1) translateY(0)' } },
+              slideUpFade: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+              staggerUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+              circleExpand: { '0%': { 'clip-path': 'circle(0% at 50% 50%)', opacity: '0', filter: 'blur(10px)' }, '100%': { 'clip-path': 'circle(150% at 50% 50%)', opacity: '1', filter: 'blur(0)' } },
+              waterDroplet: { '0%': { 'clip-path': 'circle(0% at var(--origin-x, 50%) var(--origin-y, 50%))', backdropFilter: 'blur(0px)', opacity: '1' }, '100%': { 'clip-path': 'circle(150% at var(--origin-x, 50%) var(--origin-y, 50%))', backdropFilter: 'blur(32px)', opacity: '1' } },
+              simpleZoom: { '0%': { opacity: '0', transform: 'scale(0.92)', backdropFilter: 'blur(0px)' }, '100%': { opacity: '1', transform: 'scale(1)', backdropFilter: 'blur(24px)' } },
+              ripple: { '0%': { transform: 'scale(0) translateZ(0)', opacity: '0.6', borderWidth: '0px' }, '100%': { transform: 'scale(10) translateZ(0)', opacity: '0', borderWidth: '60px' } },
+              continuousRipple: { '0%': { transform: 'scale(0.8) translateZ(0)', opacity: '0.2' }, '100%': { transform: 'scale(4) translateZ(0)', opacity: '0' } },
+              waveSpread: { '0%': { transform: 'scale(0) translateZ(0)', opacity: '0.8', borderRadius: '40%' }, '100%': { transform: 'scale(3) translateZ(0)', opacity: '0', borderRadius: '50%' } },
+              wave: { '0%, 100%': { height: '20%', opacity: '0.5' }, '50%': { height: '100%', opacity: '1' } },
+              drift: { '0%': { transform: 'translateX(0) translateZ(0)' }, '100%': { transform: 'translateX(-50%) translateZ(0)' } },
+              blob: { '0%': { transform: 'translate(0px, 0px) scale(1)' }, '33%': { transform: 'translate(30px, -50px) scale(1.1)' }, '66%': { transform: 'translate(-20px, 20px) scale(0.9)' }, '100%': { transform: 'translate(0px, 0px) scale(1)' } },
+              'gradient-xy': { '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' }, '50%': { 'background-size': '200% 200%', 'background-position': 'right center' } },
+              'karaoke-glow': { '0%, 100%': { textShadow: '0 0 15px rgba(var(--color-primary), 0.3)', opacity: '0.85', transform: 'scale(1)' }, '50%': { textShadow: '0 0 50px rgba(var(--color-primary), 0.8), 0 0 25px rgba(255, 255, 255, 0.5)', opacity: '1', transform: 'scale(1.03)' } },
+              highlightPulse: { '0%, 100%': { backgroundColor: 'transparent', transform: 'scale(1)' }, '50%': { backgroundColor: 'rgba(var(--color-primary), 0.15)', transform: 'scale(1.02)', borderRadius: '0.5rem' } },
+              heartbeat: { '0%': { transform: 'scale(1)' }, '15%': { transform: 'scale(1.25)' }, '30%': { transform: 'scale(1)' }, '45%': { transform: 'scale(1.15)' }, '60%': { transform: 'scale(1)' }, '100%': { transform: 'scale(1)' } },
+              burst: { '0%': { transform: 'scale(1)' }, '40%': { transform: 'scale(1.5) rotate(-10deg)' }, '70%': { transform: 'scale(0.8) rotate(10deg)' }, '100%': { transform: 'scale(1) rotate(0)' } },
+              rippleOut: { '0%': { transform: 'scale(0.5)', opacity: '0.8', borderWidth: '4px' }, '100%': { transform: 'scale(2)', opacity: '0', borderWidth: '0px' } },
+              particleUp: { '0%': { transform: 'translate(-50%, 0) scale(1)', opacity: '1' }, '100%': { transform: 'translate(-50%, -20px) scale(0)', opacity: '0' } },
+              fillIn: { '0%': { width: '0%' }, '100%': { width: '100%' } }
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --background: 250 250 252;
+        --surface: 255 255 255;
+        --color-primary: 56 189 248; 
+        --color-secondary: 129 140 248;
+        --bg-opacity: 0.65;
+        --blur: 24px;
+        --radius: 1.5rem;
+        --radius-sm: 0.75rem;
+        --radius-search: 9999px;
+        --anim-speed: 1;
+        transition: background-color 0.8s ease;
+      }
+      .dark {
+        --background: 5 5 5;
+        --surface: 24 24 27;
+      }
+      
+      body {
+        transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease;
+        background-color: rgb(var(--background));
+      }
+
+      /* SOLID STYLE - Ceramic Finish */
+      /* Clean, opaque, minimal shadow */
+      body.style-solid {
+        --bg-opacity: 1;
+        --blur: 0px;
+        background-color: rgb(var(--background)) !important;
+      }
+
+      body.style-solid .glass-panel,
+      body.style-solid [class*="backdrop-blur"] {
+        background-color: rgb(var(--surface)) !important;
+        backdrop-filter: none !important;
+        border: 1px solid rgba(0,0,0,0.06) !important;
+        box-shadow: 
+            0 4px 6px -1px rgba(0, 0, 0, 0.05),
+            0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+      }
+
+      .dark body.style-solid .glass-panel,
+      .dark body.style-solid [class*="backdrop-blur"] {
+        background-color: #18181b !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5) !important;
+      }
+
+      /* LIQUID GLASS STYLE - High Gloss */
+      /* Richer blur, reflective borders, deeper depth */
+      body.style-liquid-glass {
+        --bg-opacity: 0.4 !important;
+        --blur: 40px !important;
+      }
+
+      body.style-liquid-glass .glass-panel,
+      body.style-liquid-glass [class*="backdrop-blur"] {
+        background-color: rgba(255, 255, 255, 0.25) !important;
+        backdrop-filter: blur(40px) saturate(140%) !important;
+        -webkit-backdrop-filter: blur(40px) saturate(140%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.4) !important;
+        box-shadow: 
+            0 20px 40px -10px rgba(0, 0, 0, 0.1),
+            inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+      }
+      
+      .dark body.style-liquid-glass .glass-panel,
+      .dark body.style-liquid-glass [class*="backdrop-blur"] {
+          background-color: rgba(0, 0, 0, 0.4) !important;
+          border: 1px solid rgba(255, 255, 255, 0.15) !important;
+          box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6) !important;
+      }
+
+      /* GLASS STYLE (Default) - Balanced */
+      /* Standard frosting, readable transparency */
+      body.style-glass .glass-panel,
+      body.style-glass [class*="backdrop-blur"] {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      }
+      
+      .dark body.style-glass .glass-panel,
+      .dark body.style-glass [class*="backdrop-blur"] {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .bg-pattern-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px); }
+      .dark .bg-pattern-grid { background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px); }
+      .bg-pattern-dots { background-size: 20px 20px; background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px); }
+      .dark .bg-pattern-dots { background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px); }
+
+      /* Scrollbar Hide */
+      ::-webkit-scrollbar { display: none; }
+      * { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* ARCADE MODE VISUALS */
+      .bg-scanlines {
+        background: linear-gradient(
+          rgba(18, 16, 16, 0) 50%,
+          rgba(0, 0, 0, 0.25) 50%
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 0, 0, 0.06),
+          rgba(0, 255, 0, 0.02),
+          rgba(0, 0, 255, 0.06)
+        );
+        background-size: 100% 4px, 3px 100%;
+        background-color: #050505;
+      }
+
+      .glitch-text {
+        text-shadow: 
+          0.05em 0 0 rgba(255, 0, 0, 0.75),
+          -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+          0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+        animation: glitch 500ms infinite;
+      }
+
+      @keyframes glitch {
+        0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+        14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+        15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+        49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+        50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+        99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+        100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75); }
+      }
+
+      .crt-flicker {
+        animation: crt-flicker 0.15s infinite;
+      }
+
+      @keyframes crt-flicker {
+        0% { opacity: 0.98; }
+        50% { opacity: 1; }
+        100% { opacity: 0.99; }
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.89.0",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "fuse.js": "https://esm.sh/fuse.js@^7.1.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
